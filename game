@@ -1,0 +1,333 @@
+<script type="module">
+
+
+    import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+        
+    // initialize kaboom context
+    kaboom({
+      background : [145, 80, 65],
+      width : 1273,
+      height : 607,
+    })
+    scene("menu", () => {
+        const man = add([
+            color(222, 0 ,0),
+            rect(560, 100),
+            pos(460, 300),
+              
+        ])
+        const man3 = add([
+            color(222, 0 ,0),
+            rect(600, 100),
+            pos(460, 480),
+         ])
+         onKeyPress("b", () => {
+            go("game2")
+         }) 
+         onKeyPress("v", () => {
+            go("game")
+         })     
+ 
+
+         const font = add([
+            text("jumping box"),
+            color(340, 80, 34),
+            pos(470, 40), 
+         ])
+        
+        const r = add([
+            text("v to play"),
+            color(340, 80, 0),
+            pos(470, 300),
+        ])
+        const r2 = add([
+            text("b to 2 player"),
+            color(340, 80, 0),
+            pos(470, 480),
+        ])
+    })
+    scene("game", () => {
+    
+     let score = 0;
+     const scoreLabel = add([
+        text(score),
+        pos(24, 24),  
+     ])
+     const player = add([
+        rect(40, 40),
+        pos(100, 100),
+        area(),
+        solid(), 
+        body(),
+        color(300, 0, 0),
+        outline(4),
+     ])
+     const player2 = add([
+        rect(40, 40),
+        pos(95, 100),
+        area(),
+        solid(), 
+        body(),
+        color(300, 0, 0),
+        outline(4),
+     ])
+     const player3 = add([
+        rect(40, 40),
+        pos(90, 100),
+        area(),
+        solid(), 
+        body(),
+        color(300, 0, 0),
+        outline(4),
+     ])
+     const flior = add([
+        rect(100, 40),
+        pos(500,190),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior2 = add([
+        rect(100, 40),
+        pos(500,210),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior3 = add([
+        rect(100, 40),
+        pos(500,270),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior4 = add([
+        rect(100, 40),
+        pos(500,310),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const floor = add([
+        rect(1000000, 3180),
+        pos(0, 380),
+        outline(4),
+        area(),
+        solid(),
+        color(0, 300, 0)
+     ])
+     const coin = add([
+        rect(50, 50),
+        pos(600,300),
+        area(),
+        color(255, 180, 255),
+        outline(4),
+        "coin",
+     ])
+     loop( 1 ,() => { 
+      add([
+        rect(48, 64),
+        area(),
+        outline(4),
+        pos(width(), 430 - 48),
+        origin("botleft"),
+        color(0, 180, 255),
+        move(LEFT, 240),
+        "tree",
+      ])
+     })
+     onUpdate(() => {
+        score++;
+        scoreLabel.text = score;
+     });
+    
+    
+     player.onCollide("tree", () => {
+        addKaboom(player.pos);
+        shake();
+        go("lose")
+     })
+     player2.onCollide("tree", () => {
+        addKaboom(player.pos);
+        shake();
+        go("lose")
+        score = scoreLabel
+    
+    
+     });
+     player3.onCollide("tree", () => {
+        addKaboom(player.pos);
+        shake();
+        go("lose")
+        score = scoreLabel
+     });
+    
+    
+     onKeyDown("right", () => {
+        player.move(60,0)
+     })
+     onKeyDown("left", () => {
+        player.move(-60,0)
+     })
+     onKeyPress("up", () => {
+        if (player.isGrounded()){
+           player.jump()
+        }
+     })
+     onKeyDown("d", () => {
+        player2.move(60,0)
+     })
+     onKeyDown("a", () => {
+        player2.move(-60,0)
+     })
+     onKeyPress("w", () => {
+        if(player2.isGrounded()){
+          player2.jump()
+        }
+     })
+     onKeyDown("l", () => {
+        player3.move(60,0)
+     })
+     onKeyDown("j", () => {
+        player3.move(-60,0)
+     })
+     onKeyPress("i", () => {
+        if (player3.isGrounded()){
+           player3.jump()
+        }
+     })
+    });
+    scene("game2", () => {
+        const player = add([
+        rect(40, 40),
+        pos(100, 100),
+        area(),
+        solid(), 
+        body(),
+        color(300, 0, 0),
+        outline(4),
+     ])
+     const player2 = add([
+        rect(40, 40),
+        pos(95, 100),
+        area(),
+        solid(), 
+        body(),
+        color(300, 0, 0),
+        outline(4),
+     ])
+     const flior = add([
+        rect(100, 40),
+        pos(500,190),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior2 = add([
+        rect(100, 40),
+        pos(500,210),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior3 = add([
+        rect(100, 40),
+        pos(500,270),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const flior4 = add([
+        rect(100, 40),
+        pos(500,310),
+        area(),
+        body(),
+        color(0, 0, 900),
+        outline(4),
+     ])
+     const floor = add([
+        rect(1000000, 3180),
+        pos(0, 380),
+        outline(4),
+        area(),
+        solid(),
+        color(0, 300, 0)
+     ])
+     const coin = add([
+        rect(50, 50),
+        pos(600,300),
+        area(),
+        color(255, 180, 255),
+        outline(4),
+        "coin",
+     ])
+     loop( 1 ,() => { 
+      add([
+        rect(48, 64),
+        area(),
+        outline(4),
+        pos(width(), 430 - 48),
+        origin("botleft"),
+        color(0, 180, 255),
+        move(LEFT, 240),
+        "tree",
+      ])
+     })
+  
+    
+    
+     player.onCollide("tree", () => {
+        addKaboom(player.pos);
+        shake();
+        go("lose")
+     })
+     player2.onCollide("tree", () => {
+        addKaboom(player.pos);
+        shake();
+        go("lose")
+     })
+        onKeyDown("right", () => {
+         player.move(60,0)
+        })
+       onKeyDown("left", () => {
+       player.move(-60,0)
+       })
+       onKeyPress("up", () => {
+        if (player.isGrounded()){
+          player.jump()
+        }
+      })
+      onKeyDown("d", () => {
+       player2.move(60,0)
+      })
+      onKeyDown("a", () => {
+       player2.move(-60,0)
+      })
+      onKeyPress("w", () => {
+       if(player2.isGrounded()){
+         player2.jump()
+       }
+      })   
+    })
+    
+    
+    scene("lose", () => {
+    add([
+      text("you lose"),
+      pos(300, 300),
+      color(0, 44, 27),
+    
+    
+    ])
+    
+  })
+    
+    go("menu")
+    </script>
